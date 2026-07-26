@@ -11,4 +11,4 @@ ragas
 llama-index-embeddings-google-genai
 llama-index-vector-stores-pinecone
 llama-index-llms-groq
-pinecone-client
+pinecone
