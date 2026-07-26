@@ -13,3 +13,4 @@ llama-index-vector-stores-pinecone
 llama-index-llms-groq
 pinecone
 llama-index-readers-file
+llama-index-readers-llama-parse
