@@ -1,0 +1,14 @@
+streamlit
+pandas
+nest-asyncio
+python-dotenv
+psycopg2-binary
+llama-index-core
+llama-parse
+google-genai
+instructor
+ragas
+llama-index-embeddings-google-genai
+llama-index-vector-stores-pinecone
+llama-index-llms-groq
+pinecone-client
