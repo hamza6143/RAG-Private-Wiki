@@ -14,3 +14,4 @@ google-genai==2.12.1
 instructor==1.15.4
 ragas==0.4.3
 datasets==5.0.0
+jsonref==1.1.0
