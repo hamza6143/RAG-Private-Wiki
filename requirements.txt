@@ -14,3 +14,4 @@ llama-index-llms-groq
 pinecone
 llama-index-readers-file
 llama-index-readers-llama-parse
+datasets>=2.20.0
