@@ -1,6 +1,5 @@
 streamlit
 pandas
-nest-asyncio
 python-dotenv
 psycopg2-binary
 llama-index-core
