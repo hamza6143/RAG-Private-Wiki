@@ -5,7 +5,6 @@ load_dotenv()
 
 import streamlit as st
 import pandas as pd
-import nest_asyncio
 import asyncio
 
 # Kept all your original backend module imports[cite: 1]
@@ -13,7 +12,6 @@ import database_manager as db
 import vector_pipeline as pipeline
 import eval_pipeline
 
-nest_asyncio.apply()
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
