@@ -7,11 +7,9 @@ import streamlit as st
 import pandas as pd
 import asyncio
 
-# Kept all your original backend module imports[cite: 1]
 import database_manager as db
 import vector_pipeline as pipeline
 import eval_pipeline
-
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(
@@ -135,11 +133,46 @@ st.markdown("""
         font-weight: 600 !important;
         color: #1E293B !important;
     }
+    
+    /* =========================================
+       📱 RESPONSIVE MOBILE DESIGN (Under 768px)
+       ========================================= */
+    @media (max-width: 768px) {
+        /* Reduce the massive desktop margins */
+        .main .block-container {
+            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Scale down the massive headers */
+        h1 { font-size: 1.8rem !important; }
+        h2 { font-size: 1.5rem !important; }
+        h3 { font-size: 1.3rem !important; }
+        
+        /* Make metric numbers fit on small screens */
+        [data-testid="stMetricValue"] {
+            font-size: 1.6rem !important;
+        }
+        
+        /* Ensure inputs and buttons stretch to use all mobile space */
+        .stButton>button {
+            width: 100% !important;
+        }
+        
+        /* Hide the empty spacer columns on the login page 
+           so the login box doesn't get pushed down off the screen */
+        div[data-testid="column"]:nth-of-type(1),
+        div[data-testid="column"]:nth-of-type(3) {
+            min-width: 0 !important;
+            width: 0 !important;
+            padding: 0 !important;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # --- SESSION STATE INITIALIZATION ---
-# Preserved your original session states for auth and logging[cite: 1]
 if "user_info" not in st.session_state:
     st.session_state.user_info = None
 
@@ -275,15 +308,17 @@ else:
                 label_visibility="collapsed"
             )
             
-            search_prompt = st.text_input(
-                "Search",
-                placeholder="e.g., What is our remote work policy according to the latest handbook?",
-                label_visibility="collapsed",
-                key="user_search_input"
-            )
+            # PERFECT INLINE SEARCH BAR
+            search_col, btn_col = st.columns([3, 1], vertical_alignment="bottom")
             
-            # Use columns to strictly right-align the search button
-            _, btn_col = st.columns([4, 1])
+            with search_col:
+                search_prompt = st.text_input(
+                    "Search",
+                    placeholder="e.g., What is our remote work policy according to the latest handbook?",
+                    label_visibility="collapsed",
+                    key="user_search_input"
+                )
+            
             with btn_col:
                 submit_query = st.button("Extract Insight", type="primary", use_container_width=True)
 
@@ -291,7 +326,6 @@ else:
             st.write("")
             with st.spinner(f"Running {search_mode.lower()} analysis across {user_context['org_namespace']} index..."):
                 try:
-                    # Kept your original querying logic[cite: 1]
                     response_payload = pipeline.query_secure_namespace(
                         org_namespace=user_context['org_namespace'],
                         user_role=user_context['role'],
@@ -330,7 +364,6 @@ else:
         st.write("")
         st.markdown("### Active Document Assets")
         
-        # Kept your existing database fetch logic[cite: 1]
         all_docs = db.get_namespace_documents(user_context['org_namespace'])
         visible_docs = []
         
@@ -479,7 +512,6 @@ else:
                 else:
                     with st.spinner("Executing telemetry suite. This may take a few moments..."):
                         try:
-                            # Kept your original evaluation wrapping logic[cite: 1]
                             def benchmark_query_wrapper(org_namespace, user_role, query):
                                 return pipeline.query_secure_namespace(
                                     org_namespace=org_namespace, 
